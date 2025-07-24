@@ -5,14 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samkelo Oneal | Developer & Designer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #2563eb;
-      --secondary: #7c3aed;
-      --dark: #1e293b;
-      --light: #f8fafc;
-      --accent: #f59e0b;
+      --dark-bg: #121212;
+      --darker-bg: #0a0a0a;
+      --card-bg: #1e1e1e;
+      --text-primary: #f0f0f0;
+      --text-secondary: #b0b0b0;
+      --gold: rgba(212, 175, 55, 0.8);
+      --gold-solid: #d4af37;
+      --gold-light: rgba(212, 175, 55, 0.2);
+      --accent: #4a80f0;
       --success: #10b981;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     
     * {
@@ -22,28 +30,52 @@
     }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
-      color: var(--dark);
-      background-color: #C2E5D3;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.05) 0%, transparent 20%);
+      color: var(--text-primary);
+      background-color: var(--dark-bg);
+      overflow-x: hidden;
     }
     
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+    }
+    
+    /* Animated background elements */
+    .bg-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    
+    .bg-element {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gold-light);
+      filter: blur(60px);
+      opacity: 0.15;
+    }
+    
+    /* Floating animation */
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-20px); }
     }
     
+    /* Header styles */
     header {
-      background: #033E3E;
+      background: linear-gradient(135deg, var(--darker-bg) 0%, #1a1a1a 100%);
       color: white;
-      padding: 2rem 1rem;
+      padding: 4rem 1rem 3rem;
       text-align: center;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid var(--gold-light);
     }
     
     header::before {
@@ -52,129 +84,181 @@
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: 
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 Q50,80 0,100 Z"></path></svg>') bottom center/100% 20% no-repeat,
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,100 L100,100 L100,0 Q50,20 0,0 Z"></path></svg>') top center/100% 20% no-repeat;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
     }
     
     h1 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      position: relative;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, var(--text-primary), var(--gold-solid));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
     }
     
     .tagline {
       font-size: 1.25rem;
       opacity: 0.9;
       max-width: 600px;
-      margin: 0 auto;
+      margin: 0 auto 2rem;
+      color: var(--text-secondary);
     }
     
     .social-links {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       display: flex;
       justify-content: center;
-      gap: 1rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
     
     .social-links a {
-      color: white;
+      color: var(--text-primary);
       font-size: 1.25rem;
-      transition: transform 0.3s ease;
+      transition: var(--transition);
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
     }
     
     .social-links a:hover {
-      transform: translateY(-3px);
-      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+      background: var(--gold-light);
+      color: var(--gold-solid);
+      border-color: var(--gold);
     }
     
+    /* Section styles */
     section {
-      padding: 3rem 1rem;
+      padding: 5rem 1rem;
       max-width: 1200px;
       margin: 0 auto;
     }
     
     .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 3rem;
       position: relative;
       display: inline-block;
-      color: var(--dark);
     }
     
     .section-title::after {
       content: "";
       position: absolute;
-      bottom: -8px;
+      bottom: -12px;
       left: 0;
-      width: 50px;
+      width: 70px;
       height: 4px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
+      background: linear-gradient(to right, var(--gold), transparent);
       border-radius: 2px;
     }
     
+    /* About section */
     .about-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 3rem;
       align-items: center;
     }
     
     .about-text p {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
     }
     
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
+      gap: 0.75rem;
+      margin-top: 2rem;
     }
     
     .skill {
-      background: rgba(37, 99, 235, 0.1);
-      color: #123456;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold-solid);
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
       font-size: 0.9rem;
       font-weight: 500;
+      border: 1px solid var(--gold-light);
+      transition: var(--transition);
     }
     
+    .skill:hover {
+      background: var(--gold-light);
+      transform: translateY(-2px);
+    }
+    
+    .about-image {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .about-image::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), transparent);
+      z-index: 1;
+    }
+    
+    .about-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    
+    .about-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    /* Projects section */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 2rem;
+      gap: 2.5rem;
     }
     
     .project-card {
-      background: #AFF0D1;
-      border-radius: 12px;
+      background: var(--card-bg);
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
       display: flex;
       flex-direction: column;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      border-color: var(--gold-light);
     }
     
     .project-image {
-      height: 200px;
+      height: 220px;
       overflow: hidden;
       position: relative;
     }
@@ -183,196 +267,334 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.8s ease;
     }
     
     .project-card:hover .project-image img {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
     
     .project-tag {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: #560319;
-      color: white;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
+      background: var(--gold);
+      color: #000;
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
       font-weight: 600;
+      backdrop-filter: blur(5px);
+      z-index: 2;
     }
     
     .project-content {
-      padding: 1.5rem;
+      padding: 2rem;
       flex: 1;
       display: flex;
       flex-direction: column;
     }
     
     .project-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: var(--dark);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
     }
     
     .project-description {
-      color: #64748b;
-      margin-bottom: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
       flex: 1;
+      line-height: 1.7;
     }
     
     .project-tech {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
     }
     
     .tech-item {
-      background: #e2e8f0;
-      color: #475569;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      padding: 0.35rem 1rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
       font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .project-actions {
       display: flex;
       gap: 1rem;
+      margin-top: auto;
     }
     
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 0.5rem 1.25rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 8px;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       text-decoration: none;
-      font-size: 0.9rem;
-    }
-    
-    .btn-primary {
-      background: #123456;
-      color: white;
-    }
-    
-    .btn-primary:hover {
-      background: #F87431;
-      transform: translateY(-2px);
-    }
-    
-    .btn-secondary {
-      background: #E6E6FA;
-      color: #123456;
-      border: 1px solid var(--primary);
-    }
-    
-    .btn-secondary:hover {
-      background: #77BFC7;
-      transform: translateY(-2px);
-    }
-    
-    .design-highlight {
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05));
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      border-left: 4px solid var(--secondary);
-    }
-    
-    .design-highlight h3 {
-      color: var(--secondary);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
+      font-size: 0.95rem;
       gap: 0.5rem;
     }
     
-    .design-highlight h3 i {
+    .btn-primary {
+      background: var(--gold);
+      color: #000;
+    }
+    
+    .btn-primary:hover {
+      background: var(--gold-solid);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--gold);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--gold-light);
+      transform: translateY(-3px);
+    }
+    
+    .design-highlight {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--gold);
+    }
+    
+    .design-highlight h3 {
+      color: var(--gold-solid);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
       font-size: 1.25rem;
     }
     
+    .design-highlight h3 i {
+      font-size: 1.5rem;
+    }
+    
+    .design-highlight p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    
+    /* Contact section */
     .contact-methods {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 2.5rem;
+      margin-top: 3rem;
     }
     
     .contact-card {
-      background: #E0FFFF;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
       text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .contact-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+      border-color: var(--gold-light);
     }
     
     .contact-card i {
-      font-size: 2rem;
-      color: #033E3E;
-      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      color: var(--gold-solid);
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .contact-card:hover i {
+      transform: scale(1.2);
     }
     
     .contact-card h3 {
-      margin-bottom: 0.5rem;
-      color: #123456;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      font-size: 1.5rem;
     }
     
-    .contact-card p {
-      color: #123456;
+    .contact-card p, .contact-card a {
+      color: var(--text-secondary);
+      transition: var(--transition);
     }
     
     .contact-card a {
-      color: #123456;
       font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 0.5rem;
     }
     
+    .contact-card a:hover {
+      color: var(--gold-solid);
+    }
+    
+    /* Footer */
     footer {
-      background: #033E3E;
+      background: linear-gradient(135deg, var(--darker-bg) 0%, #1a1a1a 100%);
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 3rem 1rem;
       margin-top: 3rem;
+      border-top: 1px solid var(--gold-light);
+      position: relative;
+    }
+    
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer-signature {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      margin-top: 1rem;
+      color: var(--gold-solid);
+    }
+    
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--gold);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 99;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .back-to-top.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .back-to-top:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 992px) {
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .about-image {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
     }
     
     @media (max-width: 768px) {
-      .about-content {
-        grid-template-columns: 1fr;
-      }
-      
       .projects-grid {
         grid-template-columns: 1fr;
       }
       
-      h1 {
+      .section-title {
         font-size: 2rem;
       }
       
       .tagline {
         font-size: 1.1rem;
       }
+      
+      .project-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      header {
+        padding: 3rem 1rem 2rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      section {
+        padding: 3rem 1rem;
+      }
+      
+      .project-content {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Background elements -->
+  <div class="bg-elements">
+    <div class="bg-element" style="width: 300px; height: 300px; top: 10%; left: 5%; animation: float 8s ease-in-out infinite;"></div>
+    <div class="bg-element" style="width: 400px; height: 400px; bottom: 15%; right: 8%; animation: float 10s ease-in-out infinite 2s;"></div>
+    <div class="bg-element" style="width: 250px; height: 250px; top: 50%; left: 30%; animation: float 7s ease-in-out infinite 1s;"></div>
+  </div>
+  
+  <!-- Back to top button -->
+  <div class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
   <header>
-    <h1>Samkelo Oneal</h1>
-    <p class="tagline">Software Developer × Graphic Designer × Problem Solver</p>
-    <div class="social-links">
-      <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/yourusername" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="https://dribbble.com/yourusername" target="_blank"><i class="fab fa-"></i></a>
-      <a href="https://twitter.com/yourusername" target="_blank"><i class="fab fa-twitter"></i></a>
+    <div class="header-content">
+      <h1>Samkelo Oneal</h1>
+      <p class="tagline">Software Developer × Graphic Designer × Problem Solver</p>
+      <div class="social-links">
+        <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/yourusername" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://dribbble.com/yourusername" target="_blank" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
+        <a href="https://twitter.com/yourusername" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+      </div>
     </div>
   </header>
 
@@ -396,12 +618,12 @@
           <span class="skill">UI/UX Design</span>
           <span class="skill">Agile Methodologies</span>
           <span class="skill">Networking</span>
-          <span class="skill">Microsoft Office Suit</span>
+          <span class="skill">Microsoft Office</span>
           <span class="skill">R</span>
         </div>
       </div>
       <div class="about-image">
-        <img src="profile-image.jpg" alt="Samkelo Oneal" style="width: 100%; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+        <img src="profile-image.jpg" alt="Samkelo Oneal">
       </div>
     </div>
   </section>
@@ -424,13 +646,17 @@
             <span class="tech-item">MySQL</span>
             <span class="tech-item">Bootstrap</span>
             <span class="tech-item">Web Design</span>
-            <span class="tech-item">Inventory Management</span>
+            <span class="tech-item">Inventory</span>
             <span class="tech-item">Patient Records</span>
-            <span class="tech-item">Sales and Profit Analysis</span>
+            <span class="tech-item">Sales Analysis</span>
           </div>
           <div class="project-actions">
-            <a href="MediCare+.pdf" class="btn btn-primary" target="_blank">View Project</a>
-            <a href="MediCare+.pdf" class="btn btn-secondary" download>Download PDF</a>
+            <a href="MediCare+.pdf" class="btn btn-primary" target="_blank">
+              <i class="fas fa-eye"></i> View Project
+            </a>
+            <a href="MediCare+.pdf" class="btn btn-secondary" download>
+              <i class="fas fa-download"></i> Download PDF
+            </a>
           </div>
         </div>
       </div>
@@ -442,18 +668,22 @@
           <span class="project-tag">Data Science</span>
         </div>
         <div class="project-content">
-          <h3 class="project-title">Personalized Diagnosis and Treatment Recommending Chatbot</h3>
-          <p class="project-description">Built a chatbot that reads user symptomy, check against its knowledge base, and then perform a diagnosis, and then recmmend necessary treatment..</p>
+          <h3 class="project-title">Diagnosis & Treatment Chatbot</h3>
+          <p class="project-description">Built a chatbot that reads user symptoms, checks against its knowledge base, performs a diagnosis, and recommends necessary treatment. The system uses natural language processing to understand patient concerns and provides evidence-based recommendations.</p>
           <div class="project-tech">
             <span class="tech-item">Python</span>
             <span class="tech-item">Pandas</span>
             <span class="tech-item">R</span>
             <span class="tech-item">SQL</span>
-            <span class="tech-item">JavaSrcipt</span>
+            <span class="tech-item">JavaScript</span>
           </div>
           <div class="project-actions">
-            <a href="Full Final Project - Samkelo Shambali - 201980137.pdf" class="btn btn-primary" target="_blank">View Case Study</a>
-            <a href="Full Final Project - Samkelo Shambali - 201980137.pdf" class="btn btn-secondary" download>Download PDF</a>
+            <a href="Full Final Project - Samkelo Shambali - 201980137.pdf" class="btn btn-primary" target="_blank">
+              <i class="fas fa-file-alt"></i> View Case Study
+            </a>
+            <a href="Full Final Project - Samkelo Shambali - 201980137.pdf" class="btn btn-secondary" download>
+              <i class="fas fa-download"></i> Download PDF
+            </a>
           </div>
         </div>
       </div>
@@ -474,8 +704,12 @@
             <span class="tech-item">REST API</span>
           </div>
           <div class="project-actions">
-            <a href="USMS.pdf" class="btn btn-primary" target="_blank">View Details</a>
-            <a href="USMS.pdf" class="btn btn-secondary" download>Download PDF</a>
+            <a href="USMS.pdf" class="btn btn-primary" target="_blank">
+              <i class="fas fa-info-circle"></i> View Details
+            </a>
+            <a href="USMS.pdf" class="btn btn-secondary" download>
+              <i class="fas fa-download"></i> Download PDF
+            </a>
           </div>
         </div>
       </div>
@@ -501,8 +735,12 @@
             <span class="tech-item">Brand Strategy</span>
           </div>
           <div class="project-actions">
-            <a href="#" class="btn btn-primary" target="_blank">View Samples</a>
-            <a href="https://example.com/design-portfolio" class="btn btn-primary" target="_blank">Full Portfolio</a>
+            <a href="#" class="btn btn-primary" target="_blank">
+              <i class="fas fa-images"></i> View Samples
+            </a>
+            <a href="https://example.com/design-portfolio" class="btn btn-primary" target="_blank">
+              <i class="fas fa-external-link-alt"></i> Full Portfolio
+            </a>
           </div>
         </div>
       </div>
@@ -515,7 +753,7 @@
         </div>
         <div class="project-content">
           <h3 class="project-title">Interactive Resume</h3>
-          <p class="project-description">A dynamic presentation of my professional journey, highlighting my multidisciplinary expertise and notable achievements. This document showcases my ability to communicate complex skills clearly and effectively.</p>
+          <p class="project-description">A dynamic presentation of my professional journey, highlighting my multidisciplinary expertise and notable achievements. This document showcases my ability to communicate complex skills clearly and effectively while maintaining visual appeal.</p>
           <div class="project-tech">
             <span class="tech-item">PDF</span>
             <span class="tech-item">Interactive</span>
@@ -523,8 +761,12 @@
             <span class="tech-item">Portfolio Link</span>
           </div>
           <div class="project-actions">
-            <a href="Curriculum_Vitae.pdf" class="btn btn-primary" target="_blank">View CV</a>
-            <a href="Curriculum_Vitae.pdf" class="btn btn-secondary" download>Download</a>
+            <a href="Curriculum_Vitae.pdf" class="btn btn-primary" target="_blank">
+              <i class="fas fa-file-pdf"></i> View CV
+            </a>
+            <a href="Curriculum_Vitae.pdf" class="btn btn-secondary" download>
+              <i class="fas fa-download"></i> Download
+            </a>
           </div>
         </div>
       </div>
@@ -533,29 +775,81 @@
 
   <section id="contact">
     <h2 class="section-title">Get In Touch</h2>
-    <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">I'm currently available for freelance projects and full-time opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you!</p>
+    <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem; color: var(--text-secondary);">I'm currently available for freelance projects and full-time opportunities. Whether you have a question or just want to say hi, I'll do my best to get back to you!</p>
     <div class="contact-methods">
       <div class="contact-card">
         <i class="fas fa-envelope"></i>
         <h3>Email Me</h3>
-        <p><a href="mailto:samkellooneal0007@gmail.com">samkellooneal0007@gmail.com</a></p>
+        <p>Reach out for collaborations or inquiries</p>
+        <a href="mailto:samkellooneal0007@gmail.com">samkellooneal0007@gmail.com</a>
       </div>
       <div class="contact-card">
         <i class="fas fa-phone-alt"></i>
-        <h3>Call Or Text Me</h3>
-        <p><a href="cell:+268 7838 6941">+268 7838 6941</a></p>
+        <h3>Call Or Text</h3>
+        <p>Available for direct communication</p>
+        <a href="cell:+268 7838 6941">+268 7838 6941</a>
       </div>
       <div class="contact-card">
         <i class="fab fa-linkedin-in"></i>
         <h3>Connect</h3>
-        <p><a href="https://linkedin.com/in/samkelo-shambali-216434289" target="_blank">LinkedIn Profile</a></p>
+        <p>Let's network professionally</p>
+        <a href="https://linkedin.com/in/samkelo-shambali-216434289" target="_blank">LinkedIn Profile</a>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2023 Samkelo Oneal. All rights reserved.</p>
-    <p style="margin-top: 0.5rem; opacity: 0.8;">Let's Make Magic</p>
+    <p>&copy; <span id="year"></span> Samkelo Oneal. All rights reserved.</p>
+    <p class="footer-signature">Let's Create Something Extraordinary</p>
   </footer>
+
+  <script>
+    // Back to top button functionality
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('active');
+      } else {
+        backToTopButton.classList.remove('active');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Update copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Create floating background elements dynamically
+    const bgElementsContainer = document.querySelector('.bg-elements');
+    const colors = ['rgba(212, 175, 55, 0.15)', 'rgba(212, 175, 55, 0.1)', 'rgba(212, 175, 55, 0.2)'];
+    
+    for (let i = 0; i < 5; i++) {
+      const size = Math.random() * 200 + 100;
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const delay = Math.random() * 5;
+      const duration = Math.random() * 5 + 5;
+      
+      const element = document.createElement('div');
+      element.className = 'bg-element';
+      element.style.cssText = `
+        width: ${size}px;
+        height: ${size}px;
+        top: ${y}%;
+        left: ${x}%;
+        background: ${color};
+        animation: float ${duration}s ease-in-out infinite ${delay}s;
+      `;
+      
+      bgElementsContainer.appendChild(element);
+    }
+  </script>
 </body>
 </html>
